@@ -40,7 +40,7 @@ class Position extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'name' => 'Должность',
             'active' => 'Active',
         ];
     }

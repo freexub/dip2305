@@ -45,11 +45,29 @@ class CabinetProfileDepartments extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'department_id' => 'Department ID',
-            'position_id' => 'Position ID',
+            'department_id' => 'Департамент',
+            'position_id' => 'Должность',
             'date_create' => 'Date Create',
             'date_update' => 'Date Update',
             'active' => 'Active',
         ];
+    }
+
+    public function getDepartment()
+    {
+        return $this->hasOne(Departments::className(), ['id' => 'department_id']);
+    }
+
+    public function getPosition()
+    {
+        return $this->hasOne(Position::className(), ['id' => 'position_id']);
+    }
+
+    public function getAllDepartments(){
+        return Departments::find()->all();
+    }
+
+    public function getAllPositions(){
+        return Position::find()->all();
     }
 }

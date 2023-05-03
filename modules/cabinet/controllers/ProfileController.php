@@ -2,6 +2,7 @@
 
 namespace app\modules\cabinet\controllers;
 
+use app\modules\cabinet\models\CabinetProfileDepartments;
 use Yii;
 use app\modules\cabinet\models\Profile;
 use app\modules\cabinet\models\ProfileSearch;
@@ -52,8 +53,22 @@ class ProfileController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        var_dump($model->getPosition()->id);die();
+        if (isset($model->getPosition()->id))
+            $profile_departments = CabinetProfileDepartments::findOne($model->getPosition()->id);
+        else
+            $profile_departments = new CabinetProfileDepartments();
+
+        if (Yii::$app->request->post()){
+            if ($profile_departments->load(Yii::$app->request->post()) && $profile_departments->save()) {
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'profile_departments' => $profile_departments,
         ]);
     }
 

@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 use miloschuman\highcharts\Highcharts;
 use yii\web\JsExpression;
 
-$this->title = 'ТОО «SHURA»';
+$this->title = 'Информационная система учета персонала';
 #return $this->redirect(['account/index']);
 #header('Location: account/index');
 ?>
@@ -15,7 +15,7 @@ $this->title = 'ТОО «SHURA»';
 
 <div class="site-index">
     <div class="data-view">
-        <h1><?= Html::encode($user_lvl->levels->name) ?></h1>
+        <h1><?php //echo Html::encode($user_lvl->levels->name) ?></h1>
     </div>
     <!--div class="jumbotron"-->
 
@@ -24,15 +24,15 @@ $this->title = 'ТОО «SHURA»';
             #var_dump($result) ;die();
             echo GridView::widget([
 			'dataProvider' => $dataProvider,
-			#'filterModel' => $searchModel,
+//			'filterModel' => $searchModel,
 			'columns' => [
-				#['class' => 'yii\grid\SerialColumn'],
+//				['class' => 'yii\grid\SerialColumn'],
                 'indicator.sort',
                 'indicator.name',
 
                 [
                     'label' => 'Итого: '.round($itog, 2).'%',
-                    #'visible' => Yii::$app->user->can('KpModerator'),
+//                    'visible' => Yii::$app->user->can('KpModerator'),
                     'format' => 'raw',
                     'options' => ['width' => '140'],
                     'value' => function ($data) {
@@ -42,7 +42,7 @@ $this->title = 'ТОО «SHURA»';
                             $follow = $data->follow->value;
 
                             if(isset($data->result->point)){
-                                #$point = $data->result->point;
+//                                $point = $data->result->point;
                                 $point = (int)app\models\KpData::find()->where('member_id = '.$data->id.' and data_status_id = 2 and DATE(date_add) BETWEEN "'.$date_start.'" and "'.$date_end.'"')->count();
                             }else{
                                 $point = 0;
@@ -77,7 +77,7 @@ $this->title = 'ТОО «SHURA»';
 
 
 
-				#['class' => 'yii\grid\ActionColumn'],
+//				['class' => 'yii\grid\ActionColumn'],
 			],
 		]);
         }

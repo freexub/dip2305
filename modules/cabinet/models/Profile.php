@@ -69,4 +69,9 @@ class Profile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    public function getPosition()
+    {
+        return $this->hasOne(CabinetProfileDepartments::className(), ['user_id' => 'user_id']);
+    }
 }
