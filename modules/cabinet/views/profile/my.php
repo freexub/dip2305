@@ -23,9 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="profile-view">
-    <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->user_id], ['class' => 'btn btn-warning']) ?>
-    </p>
     <div class="card bg-light d-flex flex-fill">
         <div class="card-header text-muted border-bottom-0">
 
@@ -50,32 +47,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) ?>
                 </div>
                 <div class="col-3 text-center">
-                    <?php if (isset($model->photo)) {?>
-                        <img src="/uploads/profiles/<?= $model->photo ?>" alt="user-avatar" class="img-fluid" style="">
-                    <?php }else {?>
-                        <img src="/uploads/profiles/no-avatar.png" alt="user-avatar" class="img-fluid" style="">
-                    <?php } ?>
+                    <img src="/uploads/profiles/1.jpg" alt="user-avatar" class="img-fluid" style="">
                 </div>
             </div>
         </div>
     </div>
 
-    <p class="pb-3">
-        <?= Html::a('Назначить на должность',
-            ['update', 'id' => $model->user_id],
-            ['class' => 'btn btn-success float-right mb-3','data-toggle'=>'modal','data-target'=>'#add',])
-        ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'summary' => false,
+//        'headerRowOptions' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'profile.full_name',
-            'department.name',
             'position.name',
+            'date_create',
 //            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -14,34 +14,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+        foreach ($dataProvider->models as $model) {
+    ?>
+        <div class="card bg-light d-flex flex-fill">
+            <div class="card-header">
+                <div class="card-comment card-comments">
+                    <div class="comment-text">
+                        <span class="username">
+                            <?= Html::a($model->name,
+                                [
+                                    'view',
+                                    'id' => $model->id,
+                                ])
+                            ?>
+                        </span>
+                        <?=$model->about?>
+                    </div>
 
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-//            'id',
-//            'name:ntext',
-            [
-                'label' => 'Название',
-                'format' => 'raw',
-                'value' => function($data){
-                    return Html::a($data->name,
-                        [
-                            'view',
-                            'id' => $data->id,
-                        ]
-                    );
-                }
-            ],
-//            'about:ntext',
-//            'active',
-
-//            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 
 
 </div>

@@ -11,6 +11,7 @@ use Yii;
  * @property string $full_name Полное имя
  * @property string $iin ИИН
  * @property string $adderess Адрес
+ * @property string $photo Фото
  * @property string $date_create Дата создания
  * @property string|null $date_update Последняя дата редактирования
  * @property int $active Статус
@@ -37,6 +38,7 @@ class Profile extends \yii\db\ActiveRecord
             [['user_id', 'iin', 'active'], 'integer'],
             [['date_create', 'date_update'], 'safe'],
             [['iin'], 'string', 'max' => 13],
+            [['photo'], 'string', 'max' => 50],
             [['full_name'], 'string', 'max' => 250],
             [['adderess'], 'string', 'max' => 500],
             [['user_id'], 'unique'],
@@ -54,6 +56,7 @@ class Profile extends \yii\db\ActiveRecord
             'full_name' => 'Полное имя',
             'iin' => 'ИИН',
             'adderess' => 'Адрес',
+            'photo' => 'Фото',
             'date_create' => 'Дата регистрации',
             'date_update' => 'Последняя дата редактирования',
             'active' => 'Статус',

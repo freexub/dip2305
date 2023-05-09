@@ -9,6 +9,7 @@ use app\modules\cabinet\models\ProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\cabinet\models\CabinetProfileDepartmentsSearch;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -51,10 +52,39 @@ class ProfileController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionMy()
+    {
+        $id = Yii::$app->user->id;
+        $searchModel = new CabinetProfileDepartmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['user_id'=>$id]);
+        $dataProvider->query->orderBy('date_create DESC');
+
+        $model = $this->findModel($id);
+//        var_dump($model->getPosition()->id);die();
+        if (isset($model->getPosition()->id))
+            $profile_departments = CabinetProfileDepartments::findOne($model->getPosition()->id);
+        else
+            $profile_departments = new CabinetProfileDepartments();
+
+        return $this->render('my', [
+            'model' => $model,
+            'profile_departments' => $profile_departments,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionView($id)
     {
+
+        $searchModel = new CabinetProfileDepartmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['user_id'=>$id]);
+        $dataProvider->query->orderBy('date_create DESC');
+
         $model = $this->findModel($id);
-        var_dump($model->getPosition()->id);die();
+//        var_dump($model->getPosition()->id);die();
         if (isset($model->getPosition()->id))
             $profile_departments = CabinetProfileDepartments::findOne($model->getPosition()->id);
         else
@@ -69,6 +99,8 @@ class ProfileController extends Controller
         return $this->render('view', [
             'model' => $model,
             'profile_departments' => $profile_departments,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

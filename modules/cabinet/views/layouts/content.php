@@ -2,6 +2,7 @@
 /* @var $content string */
 
 use yii\bootstrap4\Breadcrumbs;
+use app\widgets\FlashAlert;
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -43,6 +44,7 @@ use yii\bootstrap4\Breadcrumbs;
                 </h3>
             </div>
             <div class="card-body">
+                <?= FlashAlert::widget() ?>
                 <?= $content ?><!-- /.container-fluid -->
             </div>
         </div>

@@ -19,7 +19,7 @@ use yii\helpers\Html;
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/cabinet/" class="nav-link">Кабинет</a>
+            <?= (!Yii::$app->user->isGuest)? '<a href="/cabinet/" class="nav-link">Кабинет</a>' : ''?>
         </li>
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>

@@ -47,7 +47,7 @@ class CabinetProfileDepartments extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'department_id' => 'Департамент',
             'position_id' => 'Должность',
-            'date_create' => 'Date Create',
+            'date_create' => 'Дата назначения',
             'date_update' => 'Date Update',
             'active' => 'Active',
         ];
@@ -56,6 +56,11 @@ class CabinetProfileDepartments extends \yii\db\ActiveRecord
     public function getDepartment()
     {
         return $this->hasOne(Departments::className(), ['id' => 'department_id']);
+    }
+
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
     }
 
     public function getPosition()

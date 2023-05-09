@@ -46,4 +46,5 @@ class Pages extends \yii\db\ActiveRecord
             'active' => 'Active',
         ];
     }
+
 }

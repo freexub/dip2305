@@ -33,6 +33,17 @@ class BookController extends Controller
      * Lists all Book models.
      * @return mixed
      */
+    public function actionMy()
+    {
+        $searchModel = new BookSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['executor_user_id'=>Yii::$app->user->id]);
+
+        return $this->render('my', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     public function actionIndex()
     {
         $searchModel = new BookSearch();
@@ -43,6 +54,20 @@ class BookController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionTakeTicket($id)
+    {
+        $model = $this->findModel($id);
+        $model->executor_user_id = Yii::$app->user->id;
+        $model->active = 1;
+        if ($model->save()){
+            Yii::$app->session->setFlash('success', "Поздравляем! Вы назначены исполнителем.");
+            return $this->redirect(Yii::$app->request->referrer);
+        }else{
+            Yii::$app->session->setFlash('warning', "Внимание! Что-то пошло не так...");
+            return $this->redirect(Yii::$app->request->referrer);
+        }
     }
 
     public function actionIndexAll()
@@ -60,7 +85,7 @@ class BookController extends Controller
     {
         $searchModel = new BookSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['active'=>0]);
+        $dataProvider->query->andWhere(['active'=>1]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -72,7 +97,7 @@ class BookController extends Controller
     {
         $searchModel = new BookSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['active'=>1]);
+        $dataProvider->query->andWhere(['active'=>2]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

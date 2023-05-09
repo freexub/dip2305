@@ -7,14 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\cabinet\models\BookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Заявки';
+$this->title = 'Мои задачи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
-
-    <p>
-        <?= Html::a('Создать заявку', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -25,7 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
 //            'id',
-            'title',
+            [
+
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::a($data->title, ['view', 'id' => $data->id]);
+                },
+            ],
             'content:ntext',
 //            'user_id',
 //            'date_create',

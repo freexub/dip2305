@@ -2,6 +2,7 @@
 
 namespace app\modules\cabinet\controllers;
 
+use app\modules\cabinet\models\CabinetProfileDepartmentsSearch;
 use Yii;
 use app\modules\cabinet\models\Position;
 use app\modules\cabinet\models\PositionSearch;
@@ -52,8 +53,14 @@ class PositionController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new CabinetProfileDepartmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['position_id'=>$id]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

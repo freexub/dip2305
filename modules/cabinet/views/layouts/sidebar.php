@@ -8,30 +8,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <?php $rout = Yii::$app->controller->id; ?>
+        <?php $routAction = Yii::$app->requestedAction->id; ?>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Меню', 'header' => true],
-                    ['label' => 'Мой профиль', 'icon' => 'user', 'url' => ['profile/view?id='.Yii::$app->user->id]],
+                    ['label' => 'Мой профиль', 'icon' => 'user', 'url' => ['profile/my']],
+                    ['label' => 'Мои задачи', 'icon' => 'fas fa-clipboard', 'url' => ['book/my']],
+                    ['label' => 'Мои заявки', 'icon' => 'fas fa-clipboard', 'url' => ['book/index']],
                     ['label' => 'Полезная информация', 'icon' => 'fas fa-info-circle', 'url' => ['pages/index']],
-                    ['label' => 'Заявки', 'icon' => 'fas fa-clipboard', 'url' => ['book/index']],
 
                     ['label' => 'Управление', 'header' => true],
                     ['label' => 'Департаменты', 'active' => ($rout == 'departments'),'icon' => 'fas fa-building', 'url' => ['departments/index']],
-                    ['label' => 'Должности', 'active' => ($rout == 'position'),'icon' => 'fas fa-building', 'url' => ['position/index']],
+                    ['label' => 'Должности', 'active' => ($rout == 'position'),'icon' => 'fas fa-user', 'url' => ['position/index']],
                     [
                         'label' => 'Профили',
                         'icon' => 'far fa-users',
+                        'active' => ($rout == 'profile'),
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Добавить ', 'icon' => 'file-code-o', 'url' => ['profile/create'],],
+                            ['label' => 'Добавить ','icon' => 'file-code-o', 'url' => ['profile/create'],],
                             ['label' => 'Все пользователи', 'icon' => 'file-code-o', 'url' => ['profile/index'],],
                         ],
                     ],
                     [
-                        'label' => 'Полезная информация',
+                        'label' => 'Информация',
                         'icon' => 'angle-right',
                         'url' => '#',
                         'items' => [
@@ -48,35 +51,6 @@
                             ['label' => 'В очереди', 'icon' => 'file-code-o', 'url' => ['book/new'],],
                             ['label' => 'Обработанные', 'icon' => 'file-code-o', 'url' => ['book/completed'],],
                         ],
-                    ],
-//                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-//                    ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
-//                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-                    [
-//                        'label' => 'Some tools',
-//                        'icon' => 'share',
-//                        'url' => '#',
-//                        'items' => [
-//                            ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],
-//                            ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'],],
-//                            [
-//                                'label' => 'Level One',
-//                                'icon' => 'circle-o',
-//                                'url' => '#',
-//                                'items' => [
-//                                    ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-//                                    [
-//                                        'label' => 'Level Two',
-//                                        'icon' => 'circle-o',
-//                                        'url' => '#',
-//                                        'items' => [
-//                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-//                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-//                                        ],
-//                                    ],
-//                                ],
-//                            ],
-//                        ],
                     ],
                 ],
             ]);

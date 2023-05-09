@@ -2,6 +2,8 @@
 
 namespace app\modules\cabinet\controllers;
 
+use app\modules\cabinet\models\CabinetProfileDepartments;
+use app\modules\cabinet\models\CabinetProfileDepartmentsSearch;
 use app\modules\cabinet\models\ProfileSearch;
 use Yii;
 use app\modules\cabinet\models\Departments;
@@ -53,9 +55,9 @@ class DepartmentsController extends Controller
      */
     public function actionView($id)
     {
-        $searchModel = new ProfileSearch();
+        $searchModel = new CabinetProfileDepartmentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere('user_id in (SELECT user_id FROM cabinet_profile_departments)');
+        $dataProvider->query->andWhere(['department_id'=>$id]);
 
         return $this->render('view', [
             'model' => $this->findModel($id),
